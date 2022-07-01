@@ -263,11 +263,13 @@ function SMARTBUFF_OnEvent(event)
   	--SMARTBUFF_AddMsgD("Leave Combat");
 	  SMARTBUFF_Check(1, true);
 	elseif (event == "PLAYER_TARGET_CHANGED") then
-	  if (SMARTBUFF_Options.TargetSwitch) then
-      if (GetTime() > tAutoBuff + GlobalCd) then
-        tAutoBuff = GetTime();
-        SMARTBUFF_Check(5);
-      end
+		if not UnitIsDead("target") then
+			if (SMARTBUFF_Options.TargetSwitch) then
+				if (GetTime() > tAutoBuff + GlobalCd) then
+					tAutoBuff = GetTime();
+					SMARTBUFF_Check(5);
+				end
+			end
 		end
 	elseif (event == "LEARNED_SPELL_IN_TAB" or event == "ACTIONBAR_HIDEGRID") then   
     isSetBuffs = true;
