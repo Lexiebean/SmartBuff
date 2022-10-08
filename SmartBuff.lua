@@ -85,6 +85,9 @@ local DebugChatFrame = DEFAULT_CHAT_FRAME;
 local SMARTBUFF_ZMIx;
 local SMARTBUFF_ZMOx;
 
+local RestorSelfAutoCastTimeOut = 1;
+local RestorSelfAutoCast = false;
+
 
 --Returns a chat color code string
 local function BCC(r, g, b)
@@ -315,6 +318,14 @@ function SMARTBUFF_OnUpdate(elapsed)
   else
     SMARTBUFF_Check(1);
   end
+  
+	if (RestorSelfAutoCast) then
+		RestorSelfAutoCastTimeOut = RestorSelfAutoCastTimeOut - elapsed;
+		if (RestorSelfAutoCastTimeOut < 0) then
+			RestorSelfAutoCast = false;
+			SetCVar("autoSelfCast", "1");
+		end
+	end
 end
 
 
@@ -1632,6 +1643,13 @@ end
 
 -- Casts a spell
 function SMARTBUFF_doCast(unit, id, actionSlot, levels, type)
+
+	RestorSelfAutoCastTimeOut = 1;
+	if (GetCVar("autoSelfCast") == "1") then
+		RestorSelfAutoCast = true;
+		SetCVar("autoSelfCast", "0");
+	end
+
   if (id == nil) then return 9; end
   if (type == SMARTBUFF_CONST_GROUP and actionSlot == nil) then return 8; end
   if (type == SMARTBUFF_CONST_TRACK and GetTrackingTexture()) then 
