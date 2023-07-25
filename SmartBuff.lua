@@ -5,7 +5,7 @@
 -- Cast the most important buffs on you or party/raid members/pets.
 -------------------------------------------------------------------------------
 
-SMARTBUFF_VERSION       = "V1.12a";
+SMARTBUFF_VERSION       = "V1.13";
 SMARTBUFF_TITLE         = "SmartBuff";
 SMARTBUFF_SUBTITLE      = "Supports you in cast buffs";
 SMARTBUFF_DESC          = "Cast the most important buffs on you or party/raid members/pets";
